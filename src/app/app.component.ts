@@ -1,12 +1,29 @@
 import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
+
+  public quillModules = {
+      toolbar: [
+          ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+          ['blockquote', 'code-block'],
+
+          [{ 'header': [] }],
+          [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+          [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+          [{ 'indent': '-1' }, { 'indent': '+1' }],
+          [{ 'align': [] }],
+          ['clean']                                         // remove formatting button
+      ]
+  };
 
   datasets = [
     {
@@ -15,7 +32,7 @@ export class AppComponent {
       translatedName: "SoftconCIS",
       videoUrl: "",
       originalDescription: "Softconcis ist die Software für strategischen Einkauf",
-      translatedDescription: "Softconcis ist die Software für strategischen Einkauf"
+      translatedDescription: "Softconcis: Softconcis ist die Software für strategischen Einkauf"
     },
     {
       language: "EN",
@@ -41,13 +58,18 @@ export class AppComponent {
   originalName;
   originalDescription = this.datasets[0].originalDescription;
 
-
-
-
   translatedName = this.datasets[0].translatedName;
   changedName;
   translatedDescription = this.datasets[0].translatedDescription;
-  changedDescription;
+
+
+ngOnInit() {
+  if(this.translatedDescription != this.originalDescription) {
+    document.getElementById('button-undoDescription').classList.add('btn-active');
+    (<HTMLButtonElement>document.getElementById('button-undoDescription')).disabled =false;
+  }
+}
+
 
   /**change selected Entry **/
   selected(value: any) {
@@ -66,6 +88,14 @@ export class AppComponent {
 
     var el = document.getElementById('schowTranslatedName');
     el.innerHTML = this.selectedSet.translatedName;
+
+    if(this.translatedDescription != this.originalDescription) {
+      document.getElementById('button-undoDescription').classList.add('btn-active');
+      (<HTMLButtonElement>document.getElementById('button-undoDescription')).disabled =false;
+    } else {
+      document.getElementById('button-undoDescription').classList.remove('btn-active');
+      (<HTMLButtonElement>document.getElementById('button-undoDescription')).disabled = true;
+    }
   }
 
   newName() {
@@ -79,7 +109,6 @@ export class AppComponent {
   }
 
   submitDescription() {
-    this.changedDescription = (<HTMLTextAreaElement>document.getElementById('placeholderEditor')).value;
     this.enableSave(true);
   }
 
@@ -96,27 +125,42 @@ export class AppComponent {
   }
 
   openEditor() {
-    document.getElementById('placeholderEditor').classList.toggle('hide');
-
+    document.getElementById('containerQuill').classList.remove('hide');
+    document.getElementById('textareaDescription').classList.add('hide');
+    document.getElementById('changeDescription').classList.add('hide');
+    document.getElementById('cancelDescription').classList.remove('hide');
+    this.enableSave(true);
   }
+
+cancelDescription() {
+  this.translatedDescription = this.selectedSet.translatedDescription;
+  document.getElementById('containerQuill').classList.add('hide');
+  document.getElementById('textareaDescription').classList.remove('hide')
+  document.getElementById('changeDescription').classList.remove('hide');
+  document.getElementById('cancelDescription').classList.add('hide');
+  this.enableSave(false);
+}
 
   saveLocalChanges() {
     let nameChanged = false;
     let descriptionChanged = false;
-    this.changedDescription = (<HTMLTextAreaElement>document.getElementById('placeholderEditor')).value;
     if (this.changedName != null && this.changedName.length >= 2 && this.changedName != this.translatedName) {
       this.selectedSet.translatedName = this.changedName;
       nameChanged = true;
     }
 
-    if (this.changedDescription.length >= 2 && this.changedDescription != this.translatedDescription) {
-      this.selectedSet.translatedDescription = this.changedDescription;
-      console.log('description update' + this.changedDescription);
-      descriptionChanged = true;
+    if (this.translatedDescription != null && this.translatedDescription != this.selectedSet.translatedDescription) {
+      this.selectedSet.translatedDescription =this.translatedDescription;
+      descriptionChanged=true;
+
+      document.getElementById('textareaDescription').classList.remove('hide');
+      document.getElementById('containerQuill').classList.add('hide');
+      document.getElementById('cancelDescription').classList.remove('btn-active');
+      (<HTMLButtonElement>document.getElementById('cancelDescription')).disabled = true;
     }
 
+
     this.changedName = null;
-    this.changedDescription = null;
     (<HTMLInputElement>document.getElementById('inputNewName')).value = "";
     document.getElementById('globalSaveButton').classList.remove('btn-active');
     (<HTMLButtonElement>document.getElementById('globalSaveButton')).disabled = true;
@@ -128,6 +172,10 @@ export class AppComponent {
     this.hideFeedback();
     document.getElementById('feedback').classList.remove('hide');
     document.getElementById('undoConfirmation').classList.remove('hide');
+    document.getElementById('changeDescription').classList.remove('btn-active');
+    document.getElementById('button-undoDescription').classList.remove('btn-active');
+    (<HTMLButtonElement>document.getElementById('changeDescription')).disabled =true;
+    (<HTMLButtonElement>document.getElementById('button-undoDescription')).disabled =true;
   }
 
   hideFeedback() {
@@ -186,5 +234,9 @@ export class AppComponent {
       document.getElementById('feedbackErrorIcon').classList.remove('hide');
       document.getElementById('unknownError').classList.remove('hide');
     }
+  }
+
+  changeQuill(){
+    console.log("quiill");
   }
 }

@@ -40,12 +40,11 @@
       </div>
       <div class="containerDescription">
         <label for="textareaDescription">Beschreibung</label>
-        <textarea readonly name="name" class="textareaDescription" placeholder="{{selectedSet.translatedDescription}}" style="display: none;"></textarea>
-        <div class="ContainerQuill">
-          <quill-editor></quill-editor>
+        <label [innerHTML]="translatedDescription" class="textareaDescription" id="textareaDescription"></label>
+        <div class="ContainerQuill hide" id="containerQuill">
+          <quill-editor [(ngModel)]="translatedDescription" [modules]="quillModules" id="quilli"></quill-editor>
         </div>
-        <textarea placeholder="{{selectedSet.translatedDescription}}" rows="8" cols="80" class="overlay hide" style="position: absolute;margin-top: -250px;" id="placeholderEditor" (keyup)="submitDescription()"></textarea>
-      </div>
+        </div>
 
       <div class="containerVideo">
         <label for="selectVideo" class="lblVideo">Video</label>
@@ -60,7 +59,8 @@
   <div class="" id="buttons">
     <div class="buttons">
       <div class="containerButton">
-        <button type=" button" class=" btn-active" name="button" (click)="openEditor()">Beschreibung ändern</button>
+        <button type=" button" class=" btn-active" name="button" id="changeDescription"(click)="openEditor()">Beschreibung ändern</button>
+        <button type=" button" class=" btn-active hide" name="button" id="cancelDescription"(click)="cancelDescription()">Abbrechen</button>
       </div>
       <div class="containerButton">
         <button type="button" name="button" (click)="resetDescription()" disabled id="button-undoDescription">Zurücksetzen</button>
@@ -141,13 +141,13 @@ Namen, den können Sie verändern.</label>
       <div class="msg hide" id="unknownError">
         Bei diesem Vorgang ist ein Fehler aufgetreten.
       </div>
-      <div class="msg hide" id="undoConfirmation">Sie sind dabei folgende Originalbeschreibung wiederherzustellen:
-        <div>{{selectedSet.originalDescription}}</div>
+      <label class="msg hide" id="undoConfirmation">Sie sind dabei folgende Originalbeschreibung wiederherzustellen:
+        <div class="originalDescriptionToUndo">{{selectedSet.originalDescription}}</div>
         <div class="">
-          <button type="button" name="button">Fortfahren</button>
-          <button type="button" name="button">Abbrechen</button>
+          <button type="button" name="button" class="btn-active">Fortfahren</button>
+          <button type="button" name="button" class="btn-active">Abbrechen</button>
         </div>
-      </div>
+      </label>
     </div>
 
 
