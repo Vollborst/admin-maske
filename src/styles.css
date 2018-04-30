@@ -1,1 +1,260 @@
-/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("background.JPG");
+  background-size: 100vw 100vh;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+label {
+  color: #4E4E4E;
+  font-size: 12px;
+  /*Labels are not selectable*/
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+button {
+  width: 136px;
+  height: 24px;
+  font-size: 12px;
+  background-color: #ffffff;
+  color: #B7B7B7;
+  border: 1px solid #B7B7B7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-active {
+  color: #000000;
+  background-color: #ABCF72;
+  border: none;
+  cursor: pointer;
+}
+
+button.btn-active:hover {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+button:focus {
+  outline: none;
+}
+
+select {
+  display: block;
+}
+
+select:focus {
+  outline: none;
+  border-top: 3px solid #ABCF72;
+  margin-top: -2px;
+}
+
+.container {
+  margin-top: 40px;
+  margin-left: 379px;
+  background-color: white;
+  display: grid;
+  grid-template-columns: minmax(450px, auto) 200px 400px;
+  grid-template-rows: 300px auto 100px;
+  width: 1537px;
+  height: 893px;
+}
+
+.containerDataset {
+  padding-top: 52px;
+  padding-left: 32px;
+}
+
+.borderLeft {
+  border-left: 1px solid #707070;
+}
+
+.borderTop {
+  border-top: 1px solid #707070;
+}
+
+.chooseDataset {
+  display: block;
+}
+
+.selectDataset {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.displayDataset {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+}
+
+.originalName {
+  width: 45%;
+  border-bottom: 2px groove rgba(112, 112, 112, 0.5);
+}
+
+.placeholderNames {
+  width: 10%;
+}
+
+.translatedName {
+  width: 45%;
+  border-bottom: 2px groove rgba(112, 112, 112, 0.5);
+}
+
+.showName {
+  cursor: default;
+  height: 18px;
+  margin-top: 7px;
+}
+
+.save-btn {
+  margin-top: 17.5px;
+  margin-left: 29px;
+}
+
+.changeAttributes {
+  padding-left: 32px;
+}
+
+.inputName {
+  width: 100%;
+  border: 1px solid rgb(169, 169, 169);
+  box-sizing: border-box;
+}
+
+.inputName:focus {
+  margin-top: -2px;
+  outline: none;
+  border-top: 3px solid #ABCF72;
+}
+
+.containerDescription {
+  margin-top: 49px;
+}
+
+.textareaDescription {
+  resize: none;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 227px;
+}
+
+.textareaDescription:focus {
+  outline: none;
+}
+
+.containerVideo {
+  margin-top: 53px;
+}
+
+.selectVideo {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.buttons {
+  padding-top: 104px;
+}
+
+.containerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.containerFeedback {
+  /*display: none;
+  /*border:1px solid #707070;*/
+  width: 380px;
+  height: 380px;
+  margin-left: 10px;
+}
+
+.containerImage {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feedbackUndo {
+  width: 250px;
+  height: 250px;
+  background-image: url("undo.png");
+}
+
+.feedbackSuccess {
+  width: 250px;
+  height: 250px;
+  background-image: url("success.png");
+}
+
+.feedbackError {
+  width: 250px;
+  height: 250px;
+  background-image: url("failure.png");
+}
+
+.msg {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.fade {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0, 0.3);
+}
+
+.tutorial {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.tutMsg{
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  text-align: center;
+  margin: 10px;
+  padding: 5px;
+  padding-top: 15px;
+}
+
+.msgTut {
+  margin-top: 15px;
+}
+
+.containerButtonTutorial {
+  margin-top: 12px;
+  margin-bottom: 15px;
+}
+.hide {
+  display:none;
+}
+
+.overlay {
+  z-index: 2;
+  background-color: white;
+}
+
+.ContainerQuill {
+  width: 100%;
+  height: 200px;
+}

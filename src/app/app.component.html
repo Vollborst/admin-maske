@@ -1,20 +1,207 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
 
+  <!-- Part of the Dataset - Picker -->
+  <div class="containerDataset" id="containerDataset">
+    <div class="chooseDataset">
+      <label for="">Datensatz auswählen</label>
+      <select class="selectDataset" name="" id="select" (change)="selected($event.target.value)">
+    <option *ngFor="let set of datasets">{{set.language}} ({{set.originalName}} / {{set.translatedName}})</option>
+
+  </select>
+    </div>
+
+    <div class="displayDataset">
+      <div class="originalName">
+        <label for="">Originaler Name</label>
+        <div class="showName" id="schowOriginalName">
+          {{selectedSet.originalName}}
+        </div>
+      </div>
+      <div class="placeholderNames"></div>
+      <div class="translatedName">
+        <label for="">Übersetzter Name</label>
+        <div class="showName" id="schowTranslatedName">{{selectedSet.translatedName}}</div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="" id="section3"></div>
+  <div class="borderLeft"></div>
+
+  <!-- Part of the changes -->
+  <div class="" id="changeAttributes">
+    <div class="changeAttributes">
+      <div class="">
+        <label for="inputName">Name</label>
+        <input class="inputName" type="text" (keyup)="newName(this)" placeholder="{{selectedSet.translatedName}}" id="inputNewName">
+      </div>
+      <div class="containerDescription">
+        <label for="textareaDescription">Beschreibung</label>
+        <textarea readonly name="name" class="textareaDescription" placeholder="{{selectedSet.translatedDescription}}" style="display: none;"></textarea>
+        <div class="ContainerQuill">
+          <quill-editor></quill-editor>
+        </div>
+        <textarea placeholder="{{selectedSet.translatedDescription}}" rows="8" cols="80" class="overlay hide" style="position: absolute;margin-top: -250px;" id="placeholderEditor" (keyup)="submitDescription()"></textarea>
+      </div>
+
+      <div class="containerVideo">
+        <label for="selectVideo" class="lblVideo">Video</label>
+        <select class="selectVideo" name="">
+      <option value="Video">Video</option>
+    </select>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="" id="buttons">
+    <div class="buttons">
+      <div class="containerButton">
+        <button type=" button" class=" btn-active" name="button" (click)="openEditor()">Beschreibung ändern</button>
+      </div>
+      <div class="containerButton">
+        <button type="button" name="button" (click)="resetDescription()" disabled id="button-undoDescription">Zurücksetzen</button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- right Part for Feedback -->
+  <div class="borderLeft">
+
+    <!-- Tutorial -->
+    <div class="tutorial hide" id="tutorial">
+      <div class="fade"></div>
+      <div class="tutMsg">
+        <label class="msgTut" id="msgTut1">Herzlich willkommen, Sie rufen diese Maske das erste Mal auf.
+    Wollen Sie eine kurze Einführung wie diese zu Bedienen ist?</label>
+
+        <label class="msgTut hide" id="msgTut2">Wählen sie im Dropdown Menü den Datensatz aus, den sie
+  bearbeiten wollen. Sie sehen den Originalen Namen, das ist der, den wir festlegen, und den Übersetzten
+Namen, den können Sie verändern.</label>
+
+        <label class="msgTut hide" id="msgTut3">Im Textfeld Name können Sie den Namen bearbeiten, der Ihnen
+  angezeigt wird. Im Feld Beschreibung steht die aktuelle Menübeschreibung. Über die Schaltfläche
+  Beschreibung ändern können Sie diese anpassen. Wollen Sie ein Video als Beschreibung, können Sie
+  unten über das Dropdown Menü Video eines auswählen.</label>
+
+        <label class="msgTut hide" id="msgTut4">Sämtliche Änderungen lassen sich über Speichern abschließen.</label>
+
+
+        <div class="containerButtonTutorial">
+          <button type="button" name="button" class="btn-active" id="startTut">Starten</button>
+          <button type="button" name="button" class="btn-active hide" id="next1">Weiter</button>
+          <button type="button" name="button" class="btn-active hide" id="next2">Weiter</button>
+          <button type="button" name="button" class="btn-active skipTut" id="skipTut">Überspringen</button>
+
+          <button type="button" name="button" class="btn-active skipTut hide" id="endTut">Beenden</button>
+
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="containerFeedback hide" id="feedback">
+      <div class="containerImage">
+        <div class="feedbackUndo hide" id="feedbackUndoIcon"></div>
+        <div class="feedbackSuccess hide" id="feedbackSuccessIcon"></div>
+        <div class="feedbackError hide" id="feedbackErrorIcon"></div>
+
+      </div>
+      <div class="msg hide" id="descriptionUndoSuccess">
+        Originale Beschreibung wurde erfolgreich wiederhergestellt.
+      </div>
+      <div class="msg hide" id="nameSuccess">
+        Der Name wurde erfolgreich übernommen.
+      </div>
+      <div class="msg hide" id="nameDescriptionError">
+      Beim Übernehmen des Namens oder der Beschreibung ist ein Fehler aufgetreten.
+      </div>
+      <div class="msg hide" id="nameError">
+        Beim Übernehmen des Namens ist ein Fehler aufgetreten.
+      </div>
+      <div class="msg hide" id="nameDescriptionSuccess">
+        Beschreibung und Name wurden erfolgreich übernommen.
+      </div>
+      <div class="msg hide" id="descriptionError">
+        Beim Übernehmen der Beschreibung ist ein Fehler aufgetreten.
+      </div>
+      <div class="msg hide" id="descriptionSuccess">
+        Die Beschreibung wurde erfolgreich übernommen.
+      </div>
+      <div class="msg hide" id="undoError">
+        Beim Wiederherstellen der originalen Beschreibung ist ein Fehler aufgetreten.
+      </div>
+      <div class="msg hide" id="unknownError">
+        Bei diesem Vorgang ist ein Fehler aufgetreten.
+      </div>
+      <div class="msg hide" id="undoConfirmation">Sie sind dabei folgende Originalbeschreibung wiederherzustellen:
+        <div>{{selectedSet.originalDescription}}</div>
+        <div class="">
+          <button type="button" name="button">Fortfahren</button>
+          <button type="button" name="button">Abbrechen</button>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="borderTop"></div>
+  <div class="borderTop"></div>
+  <div class="borderTop borderLeft" id="save">
+    <button disabled class="save-btn" type="button" name="button" id="globalSaveButton" (click)="saveLocalChanges()">Speichern</button>
+  </div>
+
+</div>
+
+
+
+
+
+<script>
+  $(document).ready(function() {
+    $("#skipTut").click(function() {
+      $("#tutorial").addClass("hide");
+    });
+    $("#startTut").click(function() {
+      $("#msgTut1").addClass("hide");
+      $("#section3").addClass("overlay");
+      $("#startTut").addClass("hide");
+      $("#msgTut2").removeClass("hide");
+      $("#next1").removeClass("hide");
+      $("#containerDataset").addClass("overlay");
+    });
+    $("#next1").click(function() {
+      $("#containerDataset").removeClass("overlay");
+      $("#section3").removeClass("overlay");
+      $("#changeAttributes").addClass("overlay");
+      $("#buttons").addClass("overlay");
+      $("#msgTut2").addClass("hide");
+      $("#next1").addClass("hide");
+      $("#next2").removeClass("hide");
+      $("#msgTut3").removeClass("hide");
+    });
+    $("#next2").click(function() {
+      $("#changeAttributes").removeClass("overlay");
+      $("#buttons").removeClass("overlay");
+      $("#save").addClass("overlay");
+      $("#msgTut3").addClass("hide");
+      $("#msgTut4").removeClass("hide");
+      $("#endTut").removeClass("hide");
+      $("#next2").addClass("hide");
+      $("#skipTut").addClass("hide");
+
+    });
+    $("#endTut").click(function() {
+      $("#tutorial").addClass("hide");
+      $("#save").removeClass("overlay");
+    });
+  });
+</script>
